@@ -3,7 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
-
+import requests
 """
 # Welcome to Streamlit!
 
@@ -16,23 +16,23 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# Run this with: streamlit run streamlit_app.py
+# Streamlit interface
+st.title("Gemini Central Console Bot")
+user_input = st.text_input("Enter your text here")
+url = "https://f1c8-34-142-152-37.ngrok-free.app/predict"  # URL of your FastAPI predict endpoint
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+if st.button("Submit"):
+    # Prepare the payload
+    payload = {"prompt": user_input}
 
-    points_per_turn = total_points / num_turns
+    # Send the request to FastAPI endpoint
+    response = requests.post(url, json=payload)
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+    # Display the response
+    if response.status_code == 200:
+        result = response.json()
+        content = result["choices"][0]["message"]["content"]
+        st.write(content)
+    else:
+        st.write("Failed to get response")
