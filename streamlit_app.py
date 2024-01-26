@@ -9,7 +9,7 @@ import requests
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 user_input = st.text_input("Enter your text here")
-url = "https://ae4e-34-143-146-233.ngrok-free.app/predict"  # URL of your FastAPI predict endpoint
+url = "https://5f8b-34-126-161-223.ngrok-free.app/predict"  # URL of your FastAPI predict endpoint
 
 if st.button("Submit"):
     # Prepare the payload
