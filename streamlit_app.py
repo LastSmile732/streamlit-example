@@ -15,6 +15,7 @@ st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
 
 if action == "draw_line_chart":
+    url = "https://b0b1-35-240-163-56.ngrok-free.app/analyse"
     # UI for line chart request
     start_date = st.date_input("Start Date")
     end_date = st.date_input("End Date")
@@ -24,9 +25,23 @@ if action == "draw_line_chart":
         mask = (df_hourly_m['Date'] >= pd.Timestamp(start_date)) & (df_hourly_m['Date'] <= pd.Timestamp(end_date))
         filtered_df = df_hourly_m.loc[mask]
         
+        total_meter_usage_series = filtered_df['TotalMeterUsage'].tolist()
+        series_text = ', '.join([f"{value:.2f}" for value in total_meter_usage_series])
+        payload = {"data": series_text}
+        
         # Plotting
         # Ensure that 'Date' is the index if you want it on the x-axis
         st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
+
+        # Send the request to FastAPI endpoint
+        response = requests.post(url, json=payload)
+        if response.status_code == 200:
+            result = response.json()
+            content = result["choices"][0]["message"]["content"]
+            st.write(content)
+            
+        else:
+            st.write(response.text)
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
