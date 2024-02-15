@@ -30,7 +30,7 @@ if action == "draw_line_chart":
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
-    url = "https://69a2-34-143-149-55.ngrok-free.app/v1/completions"  # URL of your FastAPI predict endpoint
+    url = "https://b0b1-35-240-163-56.ngrok-free.app/v1/completions"  # URL of your FastAPI predict endpoint
 
     if st.button("Submit"):
         # Prepare the payload
