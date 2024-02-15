@@ -15,7 +15,7 @@ st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
 
 if action == "draw_line_chart":
-    url = "https://b0b1-35-240-163-56.ngrok-free.app/analyse"
+    url = "https://b797-34-125-146-200.ngrok-free.app/analyse"
     # UI for line chart request
     start_date = st.date_input("Start Date")
     end_date = st.date_input("End Date")
@@ -45,7 +45,7 @@ if action == "draw_line_chart":
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
-    url = "https://b0b1-35-240-163-56.ngrok-free.app/v1/completions"  # URL of your FastAPI predict endpoint
+    url = "https://b797-34-125-146-200.ngrok-free.app/v1/completions"  # URL of your FastAPI predict endpoint
 
     if st.button("Submit"):
         # Prepare the payload
