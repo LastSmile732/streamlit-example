@@ -19,13 +19,14 @@ if action == "draw_line_chart":
     start_date = st.date_input("Start Date")
     end_date = st.date_input("End Date")
 
-    # Filter DataFrame based on date range
-    mask = (df_hourly_m['Date'] >= pd.Timestamp(start_date)) & (df_hourly_m['Date'] <= pd.Timestamp(end_date))
-    filtered_df = df_hourly_m.loc[mask]
+    if st.button("Draw"):
+        # Filter DataFrame based on date range
+        mask = (df_hourly_m['Date'] >= pd.Timestamp(start_date)) & (df_hourly_m['Date'] <= pd.Timestamp(end_date))
+        filtered_df = df_hourly_m.loc[mask]
         
-    # Plotting
-    # Ensure that 'Date' is the index if you want it on the x-axis
-    st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
+        # Plotting
+        # Ensure that 'Date' is the index if you want it on the x-axis
+        st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
