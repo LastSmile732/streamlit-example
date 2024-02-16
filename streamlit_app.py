@@ -13,7 +13,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://5353-34-125-50-54.ngrok-free.app"
+host = "https://dfc6-34-87-2-225.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -23,6 +23,7 @@ if action == "draw_line_chart":
 
     if st.button("Draw"):
         # Filter DataFrame based on date range
+        df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
         mask = (df_hourly_m['Date'] >= pd.Timestamp(start_date)) & (df_hourly_m['Date'] <= pd.Timestamp(end_date))
         filtered_df = df_hourly_m.loc[mask]
         
