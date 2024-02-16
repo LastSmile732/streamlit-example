@@ -13,7 +13,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://97d9-34-87-43-1.ngrok-free.app"
+host = "https://b7f4-34-124-240-27.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -47,7 +47,7 @@ if action == "draw_line_chart":
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
-    url = host + "/v1/completions"  # URL of your FastAPI predict endpoint
+    url = host + "/dataframe"  # URL of your FastAPI predict endpoint
 
     if st.button("Submit"):
         # Prepare the payload
