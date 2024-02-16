@@ -13,7 +13,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://fbeb-34-143-249-106.ngrok-free.app"
+host = "https://0f6c-34-87-43-1.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -27,13 +27,13 @@ if action == "draw_line_chart":
         mask = (df_hourly_m['Date'] >= pd.Timestamp(start_date)) & (df_hourly_m['Date'] <= pd.Timestamp(end_date))
         filtered_df = df_hourly_m.loc[mask]
         
-        total_meter_usage_series = filtered_df['TotalMeterUsage'].tolist()
-        series_text = ', '.join([f"{value:.2f}" for value in total_meter_usage_series])
+        total_usage_series = filtered_df['TotalUsage'].tolist()
+        series_text = ', '.join([f"{value:.2f}" for value in total_usage_series])
         payload = {"data": series_text}
         st.write("Drawing the line chart....")
         # Plotting
         # Ensure that 'Date' is the index if you want it on the x-axis
-        st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
+        st.line_chart(filtered_df.set_index('Date')['TotalUsage'])
 
         #Send the request to FastAPI endpoint
         response = requests.post(url, json=payload)
