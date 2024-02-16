@@ -13,7 +13,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://13bb-34-87-2-225.ngrok-free.app"
+host = "https://fbeb-34-143-249-106.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -30,7 +30,7 @@ if action == "draw_line_chart":
         total_meter_usage_series = filtered_df['TotalMeterUsage'].tolist()
         series_text = ', '.join([f"{value:.2f}" for value in total_meter_usage_series])
         payload = {"data": series_text}
-        st.write("Drawing the line chart")
+        st.write("Drawing the line chart....")
         # Plotting
         # Ensure that 'Date' is the index if you want it on the x-axis
         st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
