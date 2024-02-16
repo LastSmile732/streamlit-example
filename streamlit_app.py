@@ -30,20 +30,20 @@ if action == "draw_line_chart":
         total_meter_usage_series = filtered_df['TotalMeterUsage'].tolist()
         series_text = ', '.join([f"{value:.2f}" for value in total_meter_usage_series])
         payload = {"data": series_text}
-        st.write(payload)
+        st.write("Drawing the line chart")
         # Plotting
         # Ensure that 'Date' is the index if you want it on the x-axis
         st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
 
-        # Send the request to FastAPI endpoint
-        # response = requests.post(url, json=payload)
-        # if response.status_code == 200:
-        #     result = response.json()
-        #     content = result["choices"][0]["message"]["content"]
-        #     st.write(content)
+        #Send the request to FastAPI endpoint
+        response = requests.post(url, json=payload)
+        if response.status_code == 200:
+            result = response.json()
+            content = result["choices"][0]["message"]["content"]
+            st.write(content)
             
-        # else:
-        #     st.write(response.text)
+        else:
+            st.write(response.text)
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
