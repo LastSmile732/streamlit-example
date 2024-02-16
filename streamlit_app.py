@@ -36,15 +36,15 @@ if action == "draw_line_chart":
         st.line_chart(filtered_df.set_index('Date')['TotalMeterUsage'])
 
         #Send the request to FastAPI endpoint
-        response = requests.post(url, json=payload)
-        if response.status_code == 200:
+        # response = requests.post(url, json=payload)
+        # if response.status_code == 200:
             
-            result = response.json()
-            content = result["choices"][0]["message"]["content"]
-            st.write(content)
+        #     result = response.json()
+        #     content = result["choices"][0]["message"]["content"]
+        #     st.write(content)
             
-        else:
-            st.write(response.text)
+        # else:
+        #     st.write(response.text)
         
 elif action == "generate_answer":
     user_input = st.text_area("Enter your text here")
