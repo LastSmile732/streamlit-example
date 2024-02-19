@@ -14,7 +14,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://5d3e-35-198-243-15.ngrok-free.app"
+host = "https://e052-35-198-243-15.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -41,7 +41,7 @@ if action == "draw_line_chart":
             total_usage_series = filtered_df['TotalUsage'].tolist()
             series_text = ', '.join([f"{value:.2f}" for value in total_usage_series])
             payload = {"data": series_text}
-            st.write("Drawing the line chart....")
+            st.spinner("Drawing the line chart....")
             
             # Plotting
             st.line_chart(filtered_df.set_index('Date')['TotalUsage'])
@@ -51,11 +51,14 @@ if action == "draw_line_chart":
             if response.status_code == 200:
                 result = response.json()
                 content = result["choices"][0]["message"]["content"]
+                st.success('Done!')
                 st.write(content)
             else:
+                st.success('Done!')
                 st.error("Failed to get a response from the server.")
                 st.write(response.text)
         else:
+            st.success('Done!')
             st.error("No data available for the selected device ID and date range.")
         
 elif action == "generate_answer":
@@ -66,7 +69,7 @@ elif action == "generate_answer":
         # Prepare the payload
         payload = {"prompt": user_input}
         
-
+        st.spinner("Predicting....")
         # Send the request to FastAPI endpoint
         response = requests.post(url, json=payload)
         
@@ -74,9 +77,11 @@ elif action == "generate_answer":
         if response.status_code == 200:
             result = response.json()
             content = result["choices"][0]["message"]["content"]
+            st.success('Done!')
             st.write(content)
             
         else:
+            st.success('Done!')
             st.write(response.text)
 
 
