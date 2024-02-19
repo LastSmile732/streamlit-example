@@ -14,7 +14,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://e052-35-198-243-15.ngrok-free.app"
+host = "https://4283-35-198-243-15.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
@@ -41,7 +41,7 @@ if action == "draw_line_chart":
             total_usage_series = filtered_df['TotalUsage'].tolist()
             series_text = ', '.join([f"{value:.2f}" for value in total_usage_series])
             payload = {"data": series_text}
-            with st.spinner("Drawing the line chart...."):
+            with st.spinner("Analyzing...."):
 
                 # Plotting
                 st.line_chart(filtered_df.set_index('Date')['TotalUsage'])
@@ -67,7 +67,7 @@ elif action == "generate_answer":
         # Prepare the payload
         payload = {"prompt": user_input}
         
-        with st.spinner("Predicting...."):
+        with st.spinner("The agent is thinking...."):
             # Send the request to FastAPI endpoint
             response = requests.post(url, json=payload)
             
