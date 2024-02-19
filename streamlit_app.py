@@ -14,7 +14,7 @@ df_hourly_m['Date'] = pd.to_datetime(df_hourly_m['Date'])
 # Streamlit interface
 st.title("Gemini Central Console Bot")
 action = st.selectbox("Choose an action:", ["draw_line_chart", "generate_answer"])
-host = "https://c6a5-35-240-149-236.ngrok-free.app"
+host = "https://aa27-35-240-149-236.ngrok-free.app"
 
 if action == "draw_line_chart":
     url = host + "/analyse"
